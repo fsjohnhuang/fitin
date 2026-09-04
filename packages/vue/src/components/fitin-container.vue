@@ -18,22 +18,18 @@ defineOptions({
 
 const props = defineProps<FitinContainerProps>();
 
-const containerKey = computed(() =>
+const affectScope = computed(() =>
   props.transformOriginX || props.transformOriginY
     ? "affect-descendant"
     : "affect-self",
 );
 
-provideFitinContainer(containerKey.value);
-const containerRef = ref<HTMLElement>();
+provideFitinContainer(affectScope.value);
 
-function adjustContainer(
-  container: HTMLElement,
-  event: IResizeEvent,
-  props: FitinContainerProps,
-) {
+const fitinStyle = ref<CSSProperties>({});
+
+function adjustContainer(event: IResizeEvent, props: FitinContainerProps) {
   if (props.transformOriginX || props.transformOriginY) {
-    container.style.position = "absolute";
     let transform: string;
     let transformOrigin: string;
     if (props.transformOriginX && props.transformOriginY) {
@@ -52,14 +48,18 @@ function adjustContainer(
       transform = res.transform;
       transformOrigin = res.transformOrigin;
     }
-
-    container.style.width = `${props.designWidth}px`;
-    container.style.height = `${props.designHeight}px`;
-    container.style.transform = transform;
-    container.style.transformOrigin = transformOrigin;
+    fitinStyle.value = {
+      position: "absolute",
+      width: `${props.designWidth}px`,
+      height: `${props.designHeight}px`,
+      transform: transform,
+      transformOrigin: transformOrigin,
+    };
   } else {
-    container.style.width = `${event.scaleX * props.designWidth}px`;
-    container.style.height = `${event.scaleY * props.designHeight}px`;
+    fitinStyle.value = {
+      width: `${event.scaleX * props.designWidth}px`,
+      height: `${event.scaleY * props.designHeight}px`,
+    };
   }
 }
 
@@ -68,8 +68,8 @@ watchEffect((onCleanup) => {
   if (resizeObservable) {
     const subscription = resizeObservable.subscribe(
       (event: IResizeEvent | undefined) => {
-        if (event && containerRef.value) {
-          adjustContainer(containerRef.value, event, props);
+        if (event) {
+          adjustContainer(event, props);
         }
       },
     );
@@ -80,11 +80,9 @@ watchEffect((onCleanup) => {
 
 <template>
   <section
-    :key="containerKey"
     role="fitin-container"
-    :data-scope="containerKey"
-    ref="containerRef"
-    :style="props.style"
+    :data-scope="affectScope"
+    :style="[props.style, fitinStyle]"
     :class="props.class"
   >
     <slot />
