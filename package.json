@@ -1,12 +1,11 @@
 {
   "name": "fitin",
   "version": "1.0.0",
-  "description": "",
+  "description": "A lightweight, type-safe toolkit designed to eliminate the pain of responsive adaptation for data visualization dashboards.",
   "private": true,
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm -r build"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +19,7 @@
   },
   "type": "module",
   "packages": [
-    "app/*",
+    "examples/*",
     "packages/*"
   ]
 }
