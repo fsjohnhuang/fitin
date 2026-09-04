@@ -4,7 +4,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   plugins: [
     dts({
-      outDirs: "dist",
+      outDirs: "dist/types",
       include: ["src"],
       exclude: ["src/**/*.test.ts", "src/**/*.spec.ts"],
       copyDtsFiles: true, // copy the src/**/*.d.ts files to dist folder.
