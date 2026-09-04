@@ -15,8 +15,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "build:types": "vue-tsc --project tsconfig.build.json",
+    "build": "vue-tsc -b --noEmit && vite build && vue-tsc -b",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -30,7 +29,6 @@
     "@vue/tsconfig": "^0.9.1",
     "typescript": "~6.0.2",
     "vite": "^8.2.2",
-    "vite-plugin-dts": "^5.1.0",
     "vue-tsc": "^3.3.11"
   }
 }

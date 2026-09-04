@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect, computed } from "vue";
+import { ref, watchEffect, computed, type CSSProperties } from "vue";
 import type { IResizeEvent } from "@fitin/core";
 import { provideFitinContainer, useFitin } from "./hooks";
 
@@ -8,6 +8,8 @@ type FitinContainerProps = {
   designHeight: number;
   transformOriginX?: "left" | "center" | "right";
   transformOriginY?: "top" | "center" | "bottom";
+  style?: CSSProperties;
+  class?: string;
 };
 
 defineOptions({
@@ -82,6 +84,8 @@ watchEffect((onCleanup) => {
     role="fitin-container"
     :data-scope="containerKey"
     ref="containerRef"
+    :style="props.style"
+    :class="props.class"
   >
     <slot />
   </section>

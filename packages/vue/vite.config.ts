@@ -1,17 +1,8 @@
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [
-    dts({
-      outDirs: "dist",
-      include: ["src"],
-      exclude: ["src/**/*.stories.ts", "src/**/*.test.ts"],
-      copyDtsFiles: true,
-    }),
-    vue(),
-  ],
+  plugins: [vue()],
   build: {
     sourcemap: true,
     lib: {
