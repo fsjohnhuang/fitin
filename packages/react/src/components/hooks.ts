@@ -3,7 +3,7 @@ import type { Observable } from "rxjs";
 import type { IResizeEvent } from "@fitin/core";
 import { logE, logW } from "./logging";
 
-export const CanvasContext = createContext<Observable<undefined | IResizeEvent >>(undefined);
+export const CanvasContext = createContext<Observable<undefined | IResizeEvent > | undefined>(undefined);
 
 const ContainerContext = createContext<string[]>([]);
 

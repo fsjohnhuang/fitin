@@ -14,8 +14,9 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: "src/index.ts",
-      name: "fitinCore",
-      fileName: "index",
+      name: "FitinCore",
+      fileName: (format) => `index.${format}.js`,
+      formats: ['es', 'umd']
     },
   },
 });

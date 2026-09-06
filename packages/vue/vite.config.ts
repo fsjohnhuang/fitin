@@ -8,13 +8,16 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts",
       name: "Fitin",
-      fileName: (format) => `fitin.${format}.js`,
+      fileName: (format) => `index.${format}.js`,
+      formats: ["es", "umd"]
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ["vue", "rxjs", "@fitin/core"],
       output: {
         globals: {
           vue: "Vue",
+          rxjs: "rxjs",
+          "@fitin/core": "FitinCore",
         },
       },
     },

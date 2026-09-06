@@ -1,15 +1,15 @@
 import { FitinCanvas, FitinContainer } from "@fitin/react";
 
-export default function App() {
+export default function Dashboard() {
   return (
     <FitinCanvas designWidth={1920} designHeight={1080}>
-    {/* <FitinContainer
+    <FitinContainer
       designWidth={220}
       designHeight={800}
       style={{background: "red", height: "100%"}}
     >
       1234
-    </FitinContainer> */}
+    </FitinContainer>
   </FitinCanvas>
   )
 }

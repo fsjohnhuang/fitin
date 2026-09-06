@@ -1,15 +1,15 @@
 {
   "name": "@fitin/vue",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "main": "./dist/fitin.umd.js",
-  "module": "./dist/fitin.es.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/fitin.es.js",
-      "require": "./dist/fitin.umd.js",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
       "types": "./dist/types/index.d.ts"
     }
   },
@@ -18,7 +18,7 @@
     "build": "vue-tsc -b --noEmit && vite build && vue-tsc -b",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@fitin/core": "workspace:*",
     "rxjs": "^7.8.2",
     "vue": "^3.5.41"

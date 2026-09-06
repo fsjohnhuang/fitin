@@ -68,7 +68,7 @@ export default function FitinCanvas(props: FitinCanvasProps) {
     }
 
     return () => {
-        fitin.current.dispose();
+        fitin.current?.dispose();
     }
   }, [props, resizeObservable]);
 
