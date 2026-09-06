@@ -259,12 +259,18 @@ importers:
 
   packages/react:
     dependencies:
+      '@fitin/core':
+        specifier: workspace:*
+        version: link:../core
       react:
         specifier: ^19.2.8
         version: 19.2.8
       react-dom:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
     devDependencies:
       '@babel/core':
         specifier: ^7.29.7
