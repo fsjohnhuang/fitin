@@ -41,15 +41,19 @@ const props = defineProps<FitinCanvasProps>();
 
 const canvasRef = ref<HTMLElement>();
 
-const centerStyle = computed<CSSProperties>(() =>
+const canvasStyle = computed<CSSProperties>(() =>
   props.center
     ? {
         position: "absolute",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
+        overflow: "hidden"
       }
-    : {},
+    : {
+        position: "relative",
+        overflow: "hidden"
+    },
 );
 
 let fitin: Fitin;
@@ -93,7 +97,7 @@ watchEffect((onCleanup) => {
   <section
     ref="canvasRef"
     role="fitin-canvas"
-    :style="[{ position: 'relative' }, centerStyle, { overflow: 'hidden' }]"
+    :style="canvasStyle"
   >
     <slot />
   </section>
