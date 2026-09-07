@@ -1,5 +1,11 @@
 import type { IResizeEvent } from "@fitin/core";
-import { useEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { useFitin } from "./hooks";
 
 type FitinContainerProps = {
@@ -12,7 +18,10 @@ type FitinContainerProps = {
   children?: ReactNode;
 };
 
-function getFitinStyle(event: IResizeEvent, props: FitinContainerProps): CSSProperties {
+function getFitinStyle(
+  event: IResizeEvent,
+  props: FitinContainerProps,
+): CSSProperties {
   if (props.transformOriginX || props.transformOriginY) {
     let transform: string;
     let transformOrigin: string;
@@ -48,35 +57,42 @@ function getFitinStyle(event: IResizeEvent, props: FitinContainerProps): CSSProp
 }
 
 export default function FitinContainer(props: FitinContainerProps) {
-    const fitinStyle = useRef<CSSProperties>({});
-    const affectScope = useMemo(() =>
-        props.transformOriginX || props.transformOriginY
-            ? "affect-descendant"
-            : "affect-self"
-    , [props.transformOriginX, props.transformOriginY]);
+  const [fitinStyle, setFitinStyle] = useState<CSSProperties>({});
+  const affectScope = useMemo(
+    () =>
+      props.transformOriginX || props.transformOriginY
+        ? "affect-descendant"
+        : "affect-self",
+    [props.transformOriginX, props.transformOriginY],
+  );
 
-    const resizeObservable = useFitin();
-    useEffect(() => {
-        if (resizeObservable) {
-            const subscription = resizeObservable.subscribe(
-            (event: IResizeEvent | undefined) => {
-                if (event) {
-                    fitinStyle.current = getFitinStyle(event, props);
-                }
-            },
-            );
-            return () => subscription.unsubscribe();
-        }
-    }, []);
+  const resizeObservable = useFitin();
+  useEffect(() => {
+    if (resizeObservable) {
+      const subscription = resizeObservable.subscribe(
+        (event: IResizeEvent | undefined) => {
+          if (event) {
+            setFitinStyle(getFitinStyle(event, props));
+          }
+        },
+      );
+      return () => subscription.unsubscribe();
+    }
+  }, []);
 
-    return (
+  const style = useMemo(
+    () => ({ ...props.style, ...fitinStyle }),
+    [props.style, fitinStyle],
+  );
+
+  return (
     <section
-        role="fitin-container"
-        data-scope={affectScope}
-        style={{...props.style, ...fitinStyle.current}}
-        className={props.class}
+      role="fitin-container"
+      data-scope={affectScope}
+      style={style}
+      className={props.class}
     >
-        {props.children}
+      {props.children}
     </section>
-    )
+  );
 }

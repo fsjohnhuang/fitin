@@ -9,11 +9,12 @@ export default defineConfig({
       entry: "src/index.ts",
       name: "Fitin",
       fileName: (format) => `index.${format}.js`,
-      formats: ["es", "umd"]
+      formats: ["es", "umd"],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: ["vue", "rxjs", "@fitin/core"],
       output: {
+        format: "umd",
         globals: {
           vue: "Vue",
           rxjs: "rxjs",
