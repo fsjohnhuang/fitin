@@ -1,6 +1,6 @@
 {
   "name": "fitin",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A lightweight, type-safe toolkit designed to eliminate the pain of responsive adaptation for data visualization dashboards.",
   "private": true,
   "scripts": {
